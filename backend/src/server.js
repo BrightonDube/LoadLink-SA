@@ -9,7 +9,7 @@ const connectDB = require('./config/db');
 
 // Import routes
 const indexRoutes = require('./routes');
-// const authRoutes = require('./routes/auth');
+const authRoutes = require('./routes/auth');
 // const loadRoutes = require('./routes/loads');
 // const userRoutes = require('./routes/users');
 
@@ -36,7 +36,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/', indexRoutes);
-// app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 // app.use('/api/loads', loadRoutes);
 // app.use('/api/users', userRoutes);
 
