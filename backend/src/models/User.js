@@ -21,19 +21,61 @@ const UserSchema = new mongoose.Schema({
     minlength: 6,
     select: false
   },
+  phoneNumber: {
+    type: String,
+    required: [true, 'Please add a phone number']
+  },
   role: {
     type: String,
     enum: ['customer', 'driver'],
     required: true
   },
-  phone: {
-    type: String,
-    required: [true, 'Please add a phone number']
+  profilePictureUrl: {
+    type: String
   },
-  createdAt: {
-    type: Date,
-    default: Date.now
+  averageRating: {
+    type: Number,
+    default: 0
+  },
+  numberOfRatings: {
+    type: Number,
+    default: 0
+  },
+  isVerified: {
+    type: Boolean,
+    default: false
+  },
+  // Driver specific fields
+  vehicleType: {
+    type: String,
+    required: function() {
+      return this.role === 'driver';
+    }
+  },
+  vehicleRegistration: {
+    type: String,
+    required: function() {
+      return this.role === 'driver';
+    }
+  },
+  driverLicenseCode: {
+    type: String,
+    required: function() {
+      return this.role === 'driver';
+    }
+  },
+  operatingAreas: {
+    type: [String],
+    required: function() {
+      return this.role === 'driver';
+    }
+  },
+  isAvailable: {
+    type: Boolean,
+    default: true
   }
+}, {
+  timestamps: true
 });
 
 // Encrypt password using bcrypt
