@@ -6,9 +6,9 @@ const LoadSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  driver: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+  pickupAddress: {
+    type: String,
+    required: [true, 'Please add a pickup address']
   },
   pickupLocation: {
     type: {
@@ -19,11 +19,11 @@ const LoadSchema = new mongoose.Schema({
     coordinates: {
       type: [Number],
       required: true
-    },
-    address: {
-      type: String,
-      required: true
     }
+  },
+  dropoffAddress: {
+    type: String,
+    required: [true, 'Please add a dropoff address']
   },
   dropoffLocation: {
     type: {
@@ -34,47 +34,44 @@ const LoadSchema = new mongoose.Schema({
     coordinates: {
       type: [Number],
       required: true
-    },
-    address: {
-      type: String,
-      required: true
     }
   },
   description: {
     type: String,
     required: [true, 'Please add a description']
   },
-  weight: {
-    type: Number,
-    required: [true, 'Please add the weight in kg']
+  loadSize: {
+    type: String,
+    enum: ['Small', 'Medium', 'Large', 'Bakkie Load', 'Custom'],
+    required: [true, 'Please specify the load size']
   },
-  dimensions: {
-    length: {
-      type: Number,
-      required: true
-    },
-    width: {
-      type: Number,
-      required: true
-    },
-    height: {
-      type: Number,
-      required: true
-    }
+  estimatedWeightKg: {
+    type: Number
   },
-  price: {
-    type: Number,
-    required: [true, 'Please add a price']
+  requiredVehicleType: {
+    type: String
+  },
+  pickupDate: {
+    type: Date,
+    required: [true, 'Please add a pickup date']
   },
   status: {
     type: String,
-    enum: ['pending', 'accepted', 'in-transit', 'delivered', 'cancelled'],
-    default: 'pending'
+    enum: ['posted', 'quoted', 'accepted', 'in_transit', 'delivered', 'cancelled'],
+    default: 'posted'
   },
-  createdAt: {
-    type: Date,
-    default: Date.now
+  assignedDriver: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  acceptedQuoteAmount: {
+    type: Number
+  },
+  photos: {
+    type: [String]
   }
+}, {
+  timestamps: true
 });
 
 // Create geospatial index for location-based queries

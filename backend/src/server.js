@@ -10,7 +10,7 @@ const connectDB = require('./config/db');
 // Import routes
 const indexRoutes = require('./routes');
 const authRoutes = require('./routes/auth');
-// const loadRoutes = require('./routes/loads');
+const loadRoutes = require('./routes/loads');
 // const userRoutes = require('./routes/users');
 
 // Import error handler
@@ -37,7 +37,7 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/', indexRoutes);
 app.use('/api/auth', authRoutes);
-// app.use('/api/loads', loadRoutes);
+app.use('/api/loads', loadRoutes);
 // app.use('/api/users', userRoutes);
 
 // Socket.IO connection handling
